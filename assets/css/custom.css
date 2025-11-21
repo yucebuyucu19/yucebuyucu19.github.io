@@ -94,4 +94,94 @@ input[type="button"]:active {
   transform: translateY(0px);
 }
 
+/* ======================================
+   LAB 9 — SPACING SCALE
+   ====================================== */
+
+:root {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+}
+
+
+/* ABOUT SECTION SPACING */
+#about {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+/* RESUME SECTION SPACING */
+#resume {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+/* PORTFOLIO SECTION SPACING */
+#portfolio {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+/* CONTENT BLOCKS SURFACE STYLING */
+.section .container {
+  background: #ffffff;
+  padding: var(--space-3);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+  margin-bottom: var(--space-4);
+}
+
+/* ======================================
+   LAB 9 — COMPONENT 1: BACK TO TOP
+   ====================================== */
+
+#scroll-top {
+  background: #0066ff;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
+}
+
+#scroll-top:hover {
+  background: #004bcc;
+  transform: translateY(-4px);
+}
+
+#scroll-top i {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+/* ======================================
+   LAB 9 — COMPONENT 2: PROGRESS BARS
+   ====================================== */
+
+.progress {
+  height: 14px;
+  background: #e8e8e8;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #0066ff, #00a6ff);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.progress-bar:hover {
+  opacity: 0.9;
+  filter: brightness(1.1);
+}
+
+
+
+
+
 
