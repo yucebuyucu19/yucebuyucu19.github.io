@@ -1,1 +1,42 @@
+/* ============================
+   LAB 9 — TYPOGRAPHY SYSTEM
+   ============================ */
+
+/* Başlık font ailesi (h1–h3) */
+h1, h2, h3 {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  color: #222222;
+}
+
+/* H1 yeni stil */
+h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+/* H2 yeni stil */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* H3 yeni stil */
+h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+
+
+/* Paragraf tipografisi */
+p {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
+  color: #444444;
+  margin-bottom: 1rem;
+}
 
