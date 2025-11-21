@@ -182,9 +182,8 @@ section .container .container {
   }
 }
 
-/* ============================
-   OPTIONAL TASK — LIST STYLE
-   ============================ */
+/* Optional Task – Custom list styling */
+/* Includes: bullets, counters, nested list */
 
 /* Unordered list custom bullets */
 ul li {
@@ -244,6 +243,46 @@ ul ul li::before {
 
 ol ol li::before {
   color: #66a3ff;
+}
+
+/* Optional Task – Custom table styling */
+/* Includes: header row, zebra, hover, alignment */
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.custom-table thead {
+  background: #0066ff;
+  color: white;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 10px 14px;
+}
+
+/* Zebra stripe */
+.custom-table tbody tr:nth-child(even) {
+  background: #f0f6ff;
+}
+
+/* Hover */
+.custom-table tbody tr:hover {
+  background: #dbe8ff;
+}
+
+/* Text alignment */
+.custom-table td:first-child {
+  text-align: left;
+}
+
+.custom-table td:nth-child(2),
+.custom-table td:nth-child(3) {
+  text-align: right;
 }
 
 
