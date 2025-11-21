@@ -148,9 +148,12 @@ section .container .container {
 
 
 #hero .container {
-  margin-top: 60px;        
+  margin-top: 180px;        
   padding: 25px 35px;      
-  border-radius: 16px;     
+  border-radius: 16px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+  
 }
 
 #hero h1 {
