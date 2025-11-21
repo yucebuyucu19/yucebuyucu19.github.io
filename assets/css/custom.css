@@ -180,6 +180,19 @@ input[type="button"]:active {
   filter: brightness(1.1);
 }
 
+/* FIX — YouTube iframe görünmeme sorunu */
+iframe {
+  display: block !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto;
+  border: none;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+
 
 
 
