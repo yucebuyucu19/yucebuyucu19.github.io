@@ -1,64 +1,46 @@
-/* =============================
-   LAB 9 — TYPOGRAPHY SYSTEM
-============================= */
+/* ===========================================
+   LAB 9 — CUSTOM.CSS
+   =========================================== */
 
-/* Başlık stilleri (h1–h3) */
+/* --------------------------
+   TYPOGRAPHY OVERRIDE
+--------------------------- */
+
 h1, h2, h3 {
   font-family: "Poppins", "Segoe UI", sans-serif;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: 0.4px;
-  color: #1a1a1a;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  color: #222;
 }
 
-h1 {
-  font-size: 2.6rem;
-  margin-bottom: 1rem;
-}
+h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+h2 { font-size: 2rem; margin-bottom: 0.8rem; }
+h3 { font-size: 1.6rem; margin-bottom: 0.6rem; }
 
-h2 {
-  font-size: 2rem;
-  margin-bottom: 0.8rem;
-}
-
-h3 {
-  font-size: 1.55rem;
-  margin-bottom: 0.6rem;
-}
-
-/* Paragraf düzeni */
 p {
   font-family: "Inter", Arial, sans-serif;
   font-size: 1.05rem;
   line-height: 1.7;
-  letter-spacing: 0.25px;
+  letter-spacing: 0.2px;
   color: #444;
   margin-bottom: 1rem;
 }
 
+/* --------------------------
+   INTERACTIVE ELEMENTS
+--------------------------- */
 
-/* =============================
-   LAB 9 — INTERACTIVE ELEMENTS
-============================= */
-
-/* Links */
 a {
   color: #0066ff;
   text-decoration: none;
   font-weight: 500;
-  transition: 0.25s ease;
+  transition: all 0.25s ease;
 }
 
-a:hover {
-  color: #003bb5;
-  text-decoration: underline;
-}
+a:hover { color: #0033aa; text-decoration: underline; }
+a:active { color: #001a55; }
 
-a:active {
-  color: #001a55;
-}
-
-/* Buttons */
 .btn,
 button,
 input[type="submit"],
@@ -69,14 +51,14 @@ input[type="button"] {
   border: none;
   border-radius: 6px;
   font-weight: 600;
-  transition: 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .btn:hover,
 button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover {
-  background-color: #0052cc;
+  background-color: #004ecc;
   transform: translateY(-2px);
 }
 
@@ -84,14 +66,13 @@ input[type="button"]:hover {
 button:active,
 input[type="submit"]:active,
 input[type="button"]:active {
-  background-color: #003fa3;
+  background-color: #003999;
   transform: translateY(0px);
 }
 
-
-/* =============================
-   LAB 9 — SPACING SCALE SYSTEM
-============================= */
+/* --------------------------
+   SPACING SCALE
+--------------------------- */
 
 :root {
   --space-1: 8px;
@@ -100,62 +81,62 @@ input[type="button"]:active {
   --space-4: 32px;
 }
 
-/* Sadece ilgili üç bölümde spacing */
-#about {
-  padding-top: var(--space-4);
-  padding-bottom: var(--space-4);
-}
 
-#resume {
-  padding-top: var(--space-3);
-  padding-bottom: var(--space-3);
-}
-
+/* Section spacing */
+#about,
+#resume,
 #portfolio {
   padding-top: var(--space-4);
   padding-bottom: var(--space-4);
 }
 
-/* İçerik bloklarını daha profesyonel gösteren yüzeyler */
-#about .container,
-#resume .container,
-#portfolio .container {
-  background: #ffffff;
+/* --------------------------
+   Only outer sections get backgrounds
+--------------------------- */
+section .container {
+  background: #fff;
   padding: var(--space-3);
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
   margin-bottom: var(--space-4);
 }
 
+/* Remove background from nested items */
+section .container .container {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
 
-/* =============================
-   LAB 9 — COMPONENT 1 (BACK TO TOP)
-============================= */
+/* --------------------------
+   BACK TO TOP BUTTON
+--------------------------- */
 
 #scroll-top {
-  background: #0066ff !important;
+  background: #0066ff;
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  transition: 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
 }
 
 #scroll-top:hover {
-  background: #004bcc !important;
+  background: #004bcc;
   transform: translateY(-4px);
 }
 
 #scroll-top i {
-  color: #fff !important;
   font-size: 22px;
+  color: #fff;
 }
 
 
-
-/* =============================
-   LAB 9 — COMPONENT 2 (PROGRESS BARS)
-============================= */
+/* --------------------------
+   PROGRESS BARS
+--------------------------- */
 
 .progress {
   height: 14px;
@@ -163,7 +144,7 @@ input[type="button"]:active {
   border-radius: 10px;
   margin-bottom: 18px;
   overflow: hidden;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.12);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .progress-bar {
@@ -173,8 +154,8 @@ input[type="button"]:active {
 }
 
 .progress-bar:hover {
-  filter: brightness(1.13);
-  opacity: 0.95;
+  opacity: 0.9;
+  filter: brightness(1.1);
 }
 
 
