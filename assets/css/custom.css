@@ -40,3 +40,58 @@ p {
   margin-bottom: 1rem;
 }
 
+/* ======================================
+   LAB 9 — INTERACTIVE ELEMENTS (LINKS)
+   ====================================== */
+
+a {
+  color: #0066ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+a:hover {
+  color: #0033aa;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #001a55;
+}
+
+
+/* ======================================
+   LAB 9 — INTERACTIVE ELEMENTS (BUTTONS)
+   ====================================== */
+
+.btn,
+button,
+input[type="submit"],
+input[type="button"] {
+  background-color: #0066ff;
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #004ecc;
+  transform: translateY(-2px);
+}
+
+.btn:active,
+button:active,
+input[type="submit"]:active,
+input[type="button"]:active {
+  background-color: #003999;
+  transform: translateY(0px);
+}
+
+
