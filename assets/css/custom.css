@@ -286,4 +286,78 @@ ol ol li::before {
 }
 
 
+/* LAB – Animations & Loader */
+
+
+@keyframes heroFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#hero .container {
+  animation: heroFadeIn 0.9s ease-out 0.2s both;
+}
+
+/* Resume items animation */
+@keyframes resumeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resume-item {
+  animation: resumeSlideUp 0.10s ease-out;
+}
+
+/* CSS loader using #preloader */
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #050b21; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+
+
+#preloader::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #00a6ff;
+  animation: loaderSpin 1s linear infinite;
+}
+
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-data:reduce) {
+  
+   * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
 
