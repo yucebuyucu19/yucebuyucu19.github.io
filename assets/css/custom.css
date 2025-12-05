@@ -371,5 +371,26 @@ ol ol li::before {
   100% { background-position: 0% 50%; }
 }
 
+/* OPTIONAL – Floating decorative shapes */
+.shape {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  animation: floatUp 6s infinite ease-in-out;
+  z-index: 2;
+}
+
+.shape:nth-child(1) { left: 10%; animation-duration: 7s; }
+.shape:nth-child(2) { left: 30%; animation-duration: 6s; width: 22px; height: 22px; }
+.shape:nth-child(3) { left: 70%; animation-duration: 8s; width: 14px; height: 14px; }
+
+@keyframes floatUp {
+  0% { transform: translateY(60px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-60px); opacity: 0; }
+}
+
 
 
