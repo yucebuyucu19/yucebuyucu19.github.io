@@ -358,5 +358,18 @@ ol ol li::before {
   }
 }
 
+/* OPTIONAL – Animated Gradient Background */
+.animated-bg {
+  background: linear-gradient(45deg, #0066ff, #00c2ff, #7a00ff);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 
