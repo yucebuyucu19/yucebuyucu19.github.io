@@ -377,6 +377,10 @@ function resetTurn() {
   lock = false;
 }
 
+  stopTimer();          
+  updateBestScore();    
+
+
 /* -----------------------------------------
    WIN MESSAGE ANIMATION
 ------------------------------------------- */
@@ -396,5 +400,6 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
