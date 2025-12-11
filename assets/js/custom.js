@@ -263,6 +263,7 @@ function generateBoard() {
   winMessage.textContent = "";
   moves = 0;
   matches = 0;
+  startTimer();
 
   movesEl.textContent = moves;
   matchesEl.textContent = matches;
@@ -395,4 +396,5 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
