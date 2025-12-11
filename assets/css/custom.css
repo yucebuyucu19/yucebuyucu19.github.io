@@ -411,4 +411,81 @@ ol ol li::before {
     right: 20px;
 }
 
+/* ===========================
+   MEMORY GAME - LAB 12
+   =========================== */
+
+#memory-game .section-title h2 {
+  text-align: center;
+}
+
+#memory-game .stats-panel {
+  display: flex;
+  gap: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.win-message {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+/* Game Board */
+.game-board {
+  display: grid;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+/* Memory Card */
+.memory-card {
+  width: 100px;
+  height: 120px;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.memory-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Card Areas */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2.2rem;
+  border-radius: 10px;
+}
+
+.card-front {
+  background: #0066ff;
+  color: white;
+}
+
+.card-back {
+  background: #f2f2f2;
+  transform: rotateY(180deg);
+  font-size: 2.4rem;
+}
+
+
 
