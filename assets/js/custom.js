@@ -240,12 +240,12 @@ function updateBestScore() {
   let key = difficulty === "easy" ? "bestEasy" : "bestHard";
   let currentBest = localStorage.getItem(key);
 
-  // Save if no best score OR current score is lower
-  if (!currentBest || timer < Number(currentBest)) {
-    localStorage.setItem(key, timer);
-    document.getElementById(key).textContent = timer;
+  if (!currentBest || moves < Number(currentBest)) {
+    localStorage.setItem(key, moves);
+    document.getElementById(key).textContent = moves;
   }
 }
+
 
 
 /* -----------------------------------------
@@ -401,6 +401,7 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
 
