@@ -380,11 +380,13 @@ function resetTurn() {
   stopTimer();          
   updateBestScore();    
 
-
 /* -----------------------------------------
    WIN MESSAGE ANIMATION
 ------------------------------------------- */
 function showWinMessage() {
+    stopTimer();          
+    updateBestScore(); 
+    
   winMessage.textContent = "🎉 Congratulations! You matched all pairs!";
   winMessage.style.opacity = 0;
 
@@ -400,6 +402,7 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
 
