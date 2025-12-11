@@ -176,3 +176,176 @@ Object.values(inputs).forEach(input => {
 
 // Başlangıçta submit disabled
 submitBtn.disabled = true;
+
+/* ============================================
+   MEMORY GAME – Flip Card Version
+   Created by Aliberk Yüce | Script Programming LAB12
+   ============================================ */
+
+// Emoji Dataset (6 unique items → duplicates → full set)
+const icons = ["🍎", "🚗", "🐶", "⭐", "🎮", "⚽"];
+
+// DOM Elements
+const board = document.getElementById("gameBoard");
+const movesEl = document.getElementById("moves");
+const matchesEl = document.getElementById("matches");
+const winMessage = document.getElementById("winMessage");
+const startBtn = document.getElementById("startGame");
+const restartBtn = document.getElementById("restartGame");
+const difficultySelect = document.getElementById("difficulty");
+
+// Game State
+let firstCard = null;
+let secondCard = null;
+let lock = false;
+let moves = 0;
+let matches = 0;
+let cardSet = [];
+
+/* -----------------------------------------
+   UTILITY — Shuffle Array
+------------------------------------------- */
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+/* -----------------------------------------
+   CREATE GAME BOARD
+------------------------------------------- */
+function generateBoard() {
+  board.innerHTML = "";
+  winMessage.textContent = "";
+  moves = 0;
+  matches = 0;
+
+  movesEl.textContent = moves;
+  matchesEl.textContent = matches;
+
+  // Build deck
+  cardSet = [...icons, ...icons];
+  cardSet = shuffle(cardSet);
+
+  // Layout for difficulty
+  let cols, rows;
+  if (difficultySelect.value === "easy") {
+    cols = 4;
+    rows = 3;
+  } else {
+    cols = 6;
+    rows = 4;
+  }
+
+  board.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
+  board.style.gridTemplateRows = `repeat(${rows}, 120px)`;
+
+  // Create cards
+  cardSet.forEach(icon => {
+    const card = document.createElement("div");
+    card.classList.add("memory-card");
+    card.dataset.icon = icon;
+
+    // Card inner structure
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front">❓</div>
+        <div class="card-back">${icon}</div>
+      </div>
+    `;
+
+    card.addEventListener("click", flipCard);
+    board.appendChild(card);
+  });
+}
+
+/* -----------------------------------------
+   CARD FLIP LOGIC
+------------------------------------------- */
+function flipCard() {
+  if (lock) return;
+  if (this.classList.contains("matched")) return;
+  if (this === firstCard) return;
+
+  this.classList.add("flipped");
+
+  if (!firstCard) {
+    firstCard = this;
+    return;
+  }
+
+  secondCard = this;
+  moves++;
+  movesEl.textContent = moves;
+
+  checkMatch();
+}
+
+/* -----------------------------------------
+   CHECK MATCH
+------------------------------------------- */
+function checkMatch() {
+  const match = firstCard.dataset.icon === secondCard.dataset.icon;
+
+  if (match) {
+    disableCards();
+  } else {
+    unflipCards();
+  }
+}
+
+/* -----------------------------------------
+   MATCHED PAIR
+------------------------------------------- */
+function disableCards() {
+  firstCard.classList.add("matched");
+  secondCard.classList.add("matched");
+
+  matches++;
+  matchesEl.textContent = matches;
+
+  resetTurn();
+
+  if (matches === icons.length) showWinMessage();
+}
+
+/* -----------------------------------------
+   UNFLIP NON-MATCHING CARDS
+------------------------------------------- */
+function unflipCards() {
+  lock = true;
+
+  setTimeout(() => {
+    firstCard.classList.remove("flipped");
+    secondCard.classList.remove("flipped");
+
+    resetTurn();
+  }, 900);
+}
+
+/* -----------------------------------------
+   RESET TURN
+------------------------------------------- */
+function resetTurn() {
+  firstCard = null;
+  secondCard = null;
+  lock = false;
+}
+
+/* -----------------------------------------
+   WIN MESSAGE ANIMATION
+------------------------------------------- */
+function showWinMessage() {
+  winMessage.textContent = "🎉 Congratulations! You matched all pairs!";
+  winMessage.style.opacity = 0;
+
+  setTimeout(() => {
+    winMessage.style.transition = "opacity 0.6s ease-out";
+    winMessage.style.opacity = 1;
+  }, 100);
+}
+
+/* -----------------------------------------
+   BUTTON EVENTS
+------------------------------------------- */
+startBtn.addEventListener("click", generateBoard);
+restartBtn.addEventListener("click", generateBoard);
+difficultySelect.addEventListener("change", generateBoard);
