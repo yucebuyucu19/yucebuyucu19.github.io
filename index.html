@@ -465,9 +465,51 @@
     </div>
   </div>
 
+</section><!-- /Portfolio Section -->
+
+
+<!-- ======= Memory Game Section ======= -->
+<section id="memory-game" class="memory-game section light-background">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Memory Game</h2>
+    <p>Test your memory by flipping cards. Match all pairs to win!</p>
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <!-- Difficulty Selector -->
+    <div class="mb-3">
+      <label for="difficulty" class="form-label"><strong>Select Difficulty:</strong></label>
+      <select id="difficulty" class="form-select w-25">
+        <option value="easy">Easy (4×3)</option>
+        <option value="hard">Hard (6×4)</option>
+      </select>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="stats-panel mb-3">
+      <p><strong>Moves:</strong> <span id="moves">0</span></p>
+      <p><strong>Matches:</strong> <span id="matches">0</span></p>
+      <p id="winMessage" class="win-message"></p>
+    </div>
+
+    <!-- Game Board -->
+    <div id="gameBoard" class="game-board"></div>
+
+    <!-- Buttons -->
+    <div class="mt-4">
+      <button id="startGame" class="btn btn-success me-2">Start Game</button>
+      <button id="restartGame" class="btn btn-danger">Restart Game</button>
+    </div>
+
+  </div>
+
 </section>
+<!-- ======= End Memory Game Section ======= -->
 
 
+    
  <!-- Services Section -->
 <section id="services" class="services section">
 
