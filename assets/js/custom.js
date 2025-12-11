@@ -203,6 +203,52 @@ let matches = 0;
 let cardSet = [];
 
 /* -----------------------------------------
+   TIMER + BEST SCORE SYSTEM
+------------------------------------------- */
+
+let timer = 0;
+let timerInterval = null;
+
+// Load saved best scores
+let bestEasy = localStorage.getItem("bestEasy") || "–";
+let bestHard = localStorage.getItem("bestHard") || "–";
+
+// Update HTML on load
+document.getElementById("bestEasy").textContent = bestEasy;
+document.getElementById("bestHard").textContent = bestHard;
+
+// Start timer
+function startTimer() {
+  clearInterval(timerInterval);
+  timer = 0;
+  document.getElementById("timer").textContent = timer;
+
+  timerInterval = setInterval(() => {
+    timer++;
+    document.getElementById("timer").textContent = timer;
+  }, 1000);
+}
+
+// Stop timer
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+// Check + Save Best Score
+function updateBestScore() {
+  let difficulty = difficultySelect.value;
+  let key = difficulty === "easy" ? "bestEasy" : "bestHard";
+  let currentBest = localStorage.getItem(key);
+
+  // Save if no best score OR current score is lower
+  if (!currentBest || timer < Number(currentBest)) {
+    localStorage.setItem(key, timer);
+    document.getElementById(key).textContent = timer;
+  }
+}
+
+
+/* -----------------------------------------
    UTILITY — Shuffle Array
 ------------------------------------------- */
 function shuffle(array) {
@@ -349,3 +395,4 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
