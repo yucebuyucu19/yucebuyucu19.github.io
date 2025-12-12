@@ -351,7 +351,8 @@ function disableCards() {
 
   resetTurn();
 
-  if (matches === icons.length) showWinMessage();
+  if (matches === cardSet.length / 2) showWinMessage();
+
 }
 
 /* -----------------------------------------
@@ -401,6 +402,7 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
 
