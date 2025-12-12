@@ -178,30 +178,28 @@ Object.values(inputs).forEach(input => {
 submitBtn.disabled = true;
 
 /* ============================================
-   MEMORY GAME – Flip Card Version
+   MEMORY GAME – Flip Card
    Created by Aliberk Yüce | Script Programming LAB12
-   ============================================ */
+============================================ */
 
-// Emoji Dataset (6 unique items → duplicates → full set)
-// Emoji Dataset
-const iconsEasy = ["🍎", "🚗", "🐶", "⭐", "🎮", "⚽"]; // 6 pairs → 12 cards
-
+/* ---------- ICON DATASETS ---------- */
+const iconsEasy = ["🍎", "🚗", "🐶", "⭐", "🎮", "⚽"]; // 6 pairs
 const iconsHard = [
   "🍎", "🚗", "🐶", "⭐", "🎮", "⚽",
   "🎵", "📱", "🚀", "🎲", "🏀", "💡"
-]; // 12 pairs → 24 cards
+]; // 12 pairs
 
-
-// DOM Elements
+/* ---------- DOM ELEMENTS ---------- */
 const board = document.getElementById("gameBoard");
 const movesEl = document.getElementById("moves");
 const matchesEl = document.getElementById("matches");
+const timerEl = document.getElementById("timer");
 const winMessage = document.getElementById("winMessage");
+const difficultySelect = document.getElementById("difficulty");
 const startBtn = document.getElementById("startGame");
 const restartBtn = document.getElementById("restartGame");
-const difficultySelect = document.getElementById("difficulty");
 
-// Game State
+/* ---------- GAME STATE ---------- */
 let firstCard = null;
 let secondCard = null;
 let lock = false;
@@ -209,119 +207,86 @@ let moves = 0;
 let matches = 0;
 let cardSet = [];
 
-/* -----------------------------------------
-   TIMER + BEST SCORE SYSTEM
-------------------------------------------- */
-
+/* ---------- TIMER ---------- */
 let timer = 0;
 let timerInterval = null;
 
-// Load saved best scores
-let bestEasy = localStorage.getItem("bestEasy") || "–";
-let bestHard = localStorage.getItem("bestHard") || "–";
-
-// Update HTML on load
-document.getElementById("bestEasy").textContent = bestEasy;
-document.getElementById("bestHard").textContent = bestHard;
-
-// Start timer
 function startTimer() {
   clearInterval(timerInterval);
   timer = 0;
-  document.getElementById("timer").textContent = timer;
+  timerEl.textContent = timer;
 
   timerInterval = setInterval(() => {
     timer++;
-    document.getElementById("timer").textContent = timer;
+    timerEl.textContent = timer;
   }, 1000);
 }
 
-// Stop timer
 function stopTimer() {
   clearInterval(timerInterval);
 }
 
-// Check + Save Best Score
-// BEST SCORE — stored by MOVES
+/* ---------- BEST SCORE ---------- */
+function loadBestScores() {
+  document.getElementById("bestEasy").textContent =
+    localStorage.getItem("bestEasy") || "–";
+  document.getElementById("bestHard").textContent =
+    localStorage.getItem("bestHard") || "–";
+}
+
 function updateBestScore() {
   if (moves === 0) return;
-  let difficulty = difficultySelect.value;
-  let key = difficulty === "easy" ? "bestEasy" : "bestHard";
 
-  let currentBest = localStorage.getItem(key);
+  const key =
+    difficultySelect.value === "easy" ? "bestEasy" : "bestHard";
 
-  
-  if (!currentBest || isNaN(Number(currentBest))) {
-    localStorage.setItem(key, moves);
-    document.getElementById(key).textContent = moves;
-    return;
-  }
+  const stored = localStorage.getItem(key);
 
-  
-  if (moves < Number(currentBest)) {
+  if (!stored || moves < Number(stored)) {
     localStorage.setItem(key, moves);
     document.getElementById(key).textContent = moves;
   }
 }
 
-
-
-
-/* -----------------------------------------
-   UTILITY — Shuffle Array
-------------------------------------------- */
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+/* ---------- SHUFFLE ---------- */
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
 }
 
-/* -----------------------------------------
-   CREATE GAME BOARD
-------------------------------------------- */
+/* ---------- GENERATE BOARD ---------- */
 function generateBoard() {
   board.innerHTML = "";
   winMessage.textContent = "";
   moves = 0;
   matches = 0;
-  startTimer();
 
   movesEl.textContent = moves;
   matchesEl.textContent = matches;
 
-let selectedIcons;
+  startTimer();
 
-if (difficultySelect.value === "easy") {
-  cols = 4;
-  rows = 3;
-  selectedIcons = iconsEasy;
-} else {
-  cols = 6;
-  rows = 4;
-  selectedIcons = iconsHard;
-}
+  let cols, rows, icons;
 
-cardSet = [...selectedIcons, ...selectedIcons];
-cardSet = shuffle(cardSet);
-
-  // Layout for difficulty
-  let cols, rows;
   if (difficultySelect.value === "easy") {
     cols = 4;
     rows = 3;
+    icons = iconsEasy;
   } else {
     cols = 6;
     rows = 4;
+    icons = iconsHard;
   }
+
+  cardSet = shuffle([...icons, ...icons]);
 
   board.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
   board.style.gridTemplateRows = `repeat(${rows}, 120px)`;
 
-  // Create cards
   cardSet.forEach(icon => {
     const card = document.createElement("div");
-    card.classList.add("memory-card");
+    card.className = "memory-card";
     card.dataset.icon = icon;
 
-    // Card inner structure
     card.innerHTML = `
       <div class="card-inner">
         <div class="card-front">❓</div>
@@ -334,13 +299,9 @@ cardSet = shuffle(cardSet);
   });
 }
 
-/* -----------------------------------------
-   CARD FLIP LOGIC
-------------------------------------------- */
+/* ---------- GAME LOGIC ---------- */
 function flipCard() {
-  if (lock) return;
-  if (this.classList.contains("matched")) return;
-  if (this === firstCard) return;
+  if (lock || this === firstCard || this.classList.contains("matched")) return;
 
   this.classList.add("flipped");
 
@@ -356,22 +317,12 @@ function flipCard() {
   checkMatch();
 }
 
-/* -----------------------------------------
-   CHECK MATCH
-------------------------------------------- */
 function checkMatch() {
   const match = firstCard.dataset.icon === secondCard.dataset.icon;
 
-  if (match) {
-    disableCards();
-  } else {
-    unflipCards();
-  }
+  match ? disableCards() : unflipCards();
 }
 
-/* -----------------------------------------
-   MATCHED PAIR
-------------------------------------------- */
 function disableCards() {
   firstCard.classList.add("matched");
   secondCard.classList.add("matched");
@@ -382,57 +333,41 @@ function disableCards() {
   resetTurn();
 
   if (matches === cardSet.length / 2) showWinMessage();
-
-
 }
 
-/* -----------------------------------------
-   UNFLIP NON-MATCHING CARDS
-------------------------------------------- */
 function unflipCards() {
   lock = true;
 
   setTimeout(() => {
     firstCard.classList.remove("flipped");
     secondCard.classList.remove("flipped");
-
     resetTurn();
-  }, 900);
+  }, 800);
 }
 
-/* -----------------------------------------
-   RESET TURN
-------------------------------------------- */
 function resetTurn() {
   firstCard = null;
   secondCard = null;
   lock = false;
 }
 
-      
-
-/* -----------------------------------------
-   WIN MESSAGE ANIMATION
-------------------------------------------- */
+/* ---------- WIN ---------- */
 function showWinMessage() {
-    stopTimer();          
-    updateBestScore(); 
+  stopTimer();
+  updateBestScore();
 
   winMessage.textContent = "🎉 Congratulations! You matched all pairs!";
-  winMessage.style.opacity = 0;
-
-  setTimeout(() => {
-    winMessage.style.transition = "opacity 0.6s ease-out";
-    winMessage.style.opacity = 1;
-  }, 100);
 }
 
-/* -----------------------------------------
-   BUTTON EVENTS
-------------------------------------------- */
+/* ---------- EVENTS ---------- */
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
+/* ---------- INIT ---------- */
+loadBestScores();
+
+
 
 
 
