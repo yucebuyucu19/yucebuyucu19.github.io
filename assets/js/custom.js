@@ -236,6 +236,7 @@ function stopTimer() {
 
 // Check + Save Best Score
 function updateBestScore() {
+    if (moves === 0) return;
   let difficulty = difficultySelect.value;
   let key = difficulty === "easy" ? "bestEasy" : "bestHard";
   let currentBest = localStorage.getItem(key);
@@ -402,6 +403,7 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
 
