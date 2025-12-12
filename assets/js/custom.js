@@ -183,7 +183,14 @@ submitBtn.disabled = true;
    ============================================ */
 
 // Emoji Dataset (6 unique items → duplicates → full set)
-const icons = ["🍎", "🚗", "🐶", "⭐", "🎮", "⚽"];
+// Emoji Dataset
+const iconsEasy = ["🍎", "🚗", "🐶", "⭐", "🎮", "⚽"]; // 6 pairs → 12 cards
+
+const iconsHard = [
+  "🍎", "🚗", "🐶", "⭐", "🎮", "⚽",
+  "🎵", "📱", "🚀", "🎲", "🏀", "💡"
+]; // 12 pairs → 24 cards
+
 
 // DOM Elements
 const board = document.getElementById("gameBoard");
@@ -235,17 +242,28 @@ function stopTimer() {
 }
 
 // Check + Save Best Score
+// BEST SCORE — stored by MOVES
 function updateBestScore() {
-    if (moves === 0) return;
+  if (moves === 0) return;
   let difficulty = difficultySelect.value;
   let key = difficulty === "easy" ? "bestEasy" : "bestHard";
+
   let currentBest = localStorage.getItem(key);
 
-  if (!currentBest || moves < Number(currentBest)) {
+  
+  if (!currentBest || isNaN(Number(currentBest))) {
+    localStorage.setItem(key, moves);
+    document.getElementById(key).textContent = moves;
+    return;
+  }
+
+  
+  if (moves < Number(currentBest)) {
     localStorage.setItem(key, moves);
     document.getElementById(key).textContent = moves;
   }
 }
+
 
 
 
@@ -269,9 +287,20 @@ function generateBoard() {
   movesEl.textContent = moves;
   matchesEl.textContent = matches;
 
-  // Build deck
-  cardSet = [...icons, ...icons];
-  cardSet = shuffle(cardSet);
+let selectedIcons;
+
+if (difficultySelect.value === "easy") {
+  cols = 4;
+  rows = 3;
+  selectedIcons = iconsEasy;
+} else {
+  cols = 6;
+  rows = 4;
+  selectedIcons = iconsHard;
+}
+
+cardSet = [...selectedIcons, ...selectedIcons];
+cardSet = shuffle(cardSet);
 
   // Layout for difficulty
   let cols, rows;
@@ -354,6 +383,7 @@ function disableCards() {
 
   if (matches === cardSet.length / 2) showWinMessage();
 
+
 }
 
 /* -----------------------------------------
@@ -379,7 +409,7 @@ function resetTurn() {
   lock = false;
 }
 
-     
+      
 
 /* -----------------------------------------
    WIN MESSAGE ANIMATION
@@ -387,7 +417,7 @@ function resetTurn() {
 function showWinMessage() {
     stopTimer();          
     updateBestScore(); 
-    
+
   winMessage.textContent = "🎉 Congratulations! You matched all pairs!";
   winMessage.style.opacity = 0;
 
@@ -403,6 +433,7 @@ function showWinMessage() {
 startBtn.addEventListener("click", generateBoard);
 restartBtn.addEventListener("click", generateBoard);
 difficultySelect.addEventListener("change", generateBoard);
+
 
 
 
